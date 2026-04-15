@@ -1,11 +1,11 @@
 const BASE_URL = "https://api142.nurlandev.click/api/services";
 
 function renderServices(data) {
-  const container = document.getElementById("services-container");
-  container.innerHTML = "";
+  const services = document.getElementById("services");
+  services.innerHTML = "";
 
   data.map((item) => {
-    container.innerHTML += `
+    services.innerHTML += `
       <div class="bg-white rounded-lg shadow p-6 w-72">
         <img 
           src="https://api142.nurlandev.click/public/${item.image}" 

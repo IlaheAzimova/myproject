@@ -1,30 +1,29 @@
-let sliders = document.getElementById("sliders");
+let news = document.getElementById("news");
 let formList = document.getElementById("formList");
-const BASE_URL = "https://api142.nurlandev.click/api/sliders";
+const BASE_URL = "https://api142.nurlandev.click/api/news";
 
 let data = [];
 
 function render(data) {
-  sliders.innerHTML = "";
+  news.innerHTML = "";
   data.map((item) => {
-    console.log(item);
-    sliders.innerHTML += `
+    news.innerHTML += `
     
              <tr class="even:bg-blue-50">
                   <td class="p-4 text-[15px] text-slate-900 font-medium">
-                  <img src="https://api142.nurlandev.click/public/img/sliders/${item.image}" alt="" />
+                  <img src="https://api142.nurlandev.click/public/img/news/${item.main_image}" alt="" />
                   </td>
                   <td class="p-4 text-[15px] text-slate-600 font-medium">
                       ${item.title}
                   </td>
                   <td class="p-4 text-[15px] text-slate-600 font-medium">
-                     ${item.description}
+                     ${item.content}
                   </td>
-                  
+                 
                   <td class="p-4 text-[15px] text-slate-600 font-medium"> ${item.status == 1 ? "Aktiv" : "DeAktiv"}
                   <td class="p-4">
                     <div class="flex items-center">
-                      <button onclick="editSlider(${item.id})" class="mr-3 cursor-pointer" title="Edit">
+                      <button onclick="editNews(${item.id})" class="mr-3 cursor-pointer" title="Edit">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           class="w-5 h-5 fill-blue-500 hover:fill-blue-700"
@@ -40,7 +39,7 @@ function render(data) {
                           />
                         </svg>
                       </button>
-                      <button onclick='deleteSlider(${item.id})' title="Delete" class="cursor-pointer">
+                      <button onclick='deleteNews(${item.id})' title="Delete" class="cursor-pointer">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           class="w-5 h-5 fill-red-500 hover:fill-red-700"
@@ -76,21 +75,19 @@ function getAllProducts() {
 
 // postProduct
 
-function addSlider() {
-  let sliderTitle = document.getElementById("sliderTitle");
-  let sliderDesc = document.getElementById("sliderDesc");
-  let sliderImage = document.getElementById("sliderImage");
-  let sliderOrder = document.getElementById("sliderOrder");
-  let sliderStatus = document.getElementById("sliderStatus");
+function addNews() {
+  let newsTitle = document.getElementById("newsTitle");
+  let newsImage = document.getElementById("newsImage");
+  let newsStatus = document.getElementById("newsStatus");
+  let newsContent = document.getElementById("newsContent");
 
   const formData = new FormData();
 
-  formData.append("title", sliderTitle.value);
-  formData.append("description", sliderDesc.value);
-  formData.append("sort_order", sliderOrder.value);
-  formData.append("status", sliderStatus.value);
-  if (sliderImage.files[0]) {
-    formData.append("image", sliderImage.files[0]);
+  formData.append("title", newsTitle.value);
+  formData.append("content", newsContent.value);
+  formData.append("status", newsStatus.value);
+  if (newsImage.files[0]) {
+    formData.append("main_image", newsImage.files[0]);
   }
 
   fetch(BASE_URL, {
@@ -105,15 +102,14 @@ function addSlider() {
       console.log(res);
 
       if (res.status) {
-        sliderTitle.value = "";
-        sliderDesc.value = "";
-        sliderImage.value = "";
-        sliderOrder.value = "";
-        sliderStatus.value = "";
+        newsTitle.value = "";
+        newsImage.value = "";
+        newsContent.value = "";
+        newsStatus.value = "";
 
         document.getElementById("modal").classList.add("hidden");
 
-        showToast("Slider added successfully!");
+        showToast("News added successfully!");
         getAllProducts();
       } else {
         showToast("Xəta baş verdi!", "error");
@@ -123,7 +119,7 @@ function addSlider() {
 
 // deleteProduct
 
-function deleteSlider(id) {
+function deleteNews(id) {
   if (!confirm("Silmək istədiyinizə əminsiniz?")) return;
 
   fetch(`${BASE_URL}/${id}`, {
@@ -135,7 +131,7 @@ function deleteSlider(id) {
     .then((res) => res.json())
     .then((res) => {
       if (res.status) {
-        showToast("Slider silindi!");
+        showToast("News silindi!");
         getAllProducts();
       } else {
         showToast("Xəta baş verdi!", "error");
@@ -143,36 +139,38 @@ function deleteSlider(id) {
     });
 }
 
-// editSlider
-let editSliderId = document.getElementById("editSliderId");
-let editSliderImage = document.getElementById("editSliderImage");
-let editSliderTitle = document.getElementById("editSliderTitle");
-let editSliderDesc = document.getElementById("editSliderDesc");
+// editNews
+let editNewsId = document.getElementById("editNewsId");
+let editNewsImage = document.getElementById("editNewsImage");
+let editNewsTitle = document.getElementById("editNewsTitle");
+let editNewsContent = document.getElementById("editNewsContent");
 
-function editSlider(id) {
+function editNews(id) {
   const item = data.find((x) => x.id == id);
 
-  editSliderId.value = item.id;
-  editSliderTitle.value = item.title;
-  editSliderDesc.value = item.description;
+  editNewsId.value = item.id;
+  editNewsTitle.value = item.title;
+  editNewsContent.value = item.content;
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function yenileSlider() {
-  const id = editSliderId.value;
+function yenileNews() {
+  const id = editNewsId.value;
   if (!id) return alert("Mehsul secin!");
 
   const formData = new FormData();
 
-  formData.append("title", editSliderTitle.value);
-  formData.append("description", editSliderDesc.value);
+  formData.append("title", editNewsTitle.value);
+  formData.append("content", editNewsContent.value);
 
-  if (editSliderImage.files[0]) {
-    formData.append("image", editSliderImage.files[0]);
+  if (editNewsImage.files[0]) {
+    formData.append("main_image", editNewsImage.files[0]);
   }
 
+  // formData.append("_method", "PUT");
+
   fetch(`${BASE_URL}/${id}`, {
-    method: "POST", 
+    method: "POST",
     body: formData,
     headers: {
       Accept: "application/json",
@@ -192,7 +190,7 @@ function yenileSlider() {
 
 function updateForm() {
   formList.reset();
-  editSliderId.value = "";
+  editNewsId.value = "";
 }
 
 function showToast(message, type = "success") {

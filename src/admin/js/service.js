@@ -110,13 +110,13 @@ function addService() {
       console.log(res);
 
       if (res.status) {
-        serviceTitle = "";
-        serviceIcon = "";
-        serviceDesc = "";
-        serviceImage = "";
-        serviceContent = "";
-        serviceOrder = "";
-        serviceStatus = "";
+        serviceTitle.value = "";
+        serviceIcon.value = "";
+        serviceDesc.value = "";
+        serviceImage.value = "";
+        serviceContent.value = "";
+        serviceOrder.value = "";
+        serviceStatus.value = "";
 
         document.getElementById("modal").classList.add("hidden");
 
