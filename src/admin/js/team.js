@@ -1,31 +1,31 @@
-let services = document.getElementById("services");
+let team = document.getElementById("team");
 let formList = document.getElementById("formList");
-const BASE_URL = "https://api142.nurlandev.click/api/services";
+const BASE_URL = "https://api142.nurlandev.click/api/leaders";
 
 let data = [];
 
 function render(data) {
-  services.innerHTML = "";
+  team.innerHTML = "";
   data.map((item) => {
-    services.innerHTML += `
+    team.innerHTML += `
     
              <tr class="even:bg-blue-50">
                   <td class="p-4 text-[15px] text-slate-900 font-medium">
-                  <img src="https://api142.nurlandev.click/public/${item.image}" alt="" />
+                  <img src="https://api142.nurlandev.click/public/img/leaders/${item.image}" alt="" class='w-20'/>
                   </td>
                   <td class="p-4 text-[15px] text-slate-600 font-medium">
-                      ${item.title}
+                      ${item.name}
                   </td>
                   <td class="p-4 text-[15px] text-slate-600 font-medium">
-                     ${item.description}
+                     ${item.position}
                   </td>
                   <td class="p-4 text-[15px] text-slate-600 font-medium">
-                      ${item.icon}
+                      ${item.linkedin}
                   </td>
                   <td class="p-4 text-[15px] text-slate-600 font-medium"> ${item.status == 1 ? "Aktiv" : "DeAktiv"}
                   <td class="p-4">
                     <div class="flex items-center">
-                      <button onclick="editService(${item.id})" class="mr-3 cursor-pointer" title="Edit">
+                      <button onclick="editTeam(${item.id})" class="mr-3 cursor-pointer" title="Edit">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           class="w-5 h-5 fill-blue-500 hover:fill-blue-700"
@@ -41,7 +41,7 @@ function render(data) {
                           />
                         </svg>
                       </button>
-                      <button onclick='deleteService(${item.id})' title="Delete" class="cursor-pointer">
+                      <button onclick='deleteTeam(${item.id})' title="Delete" class="cursor-pointer">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           class="w-5 h-5 fill-red-500 hover:fill-red-700"
@@ -77,25 +77,24 @@ function getAllProducts() {
 
 // postProduct
 
-function addService() {
-  let serviceTitle = document.getElementById("serviceTitle");
-  let serviceIcon = document.getElementById("serviceIcon");
-  let serviceDesc = document.getElementById("serviceDesc");
-  let serviceImage = document.getElementById("serviceImage");
-  let serviceOrder = document.getElementById("serviceOrder");
-  let serviceStatus = document.getElementById("serviceStatus");
-  let serviceContent = document.getElementById("serviceContent");
+function addTeam() {
+  let teamTitle = document.getElementById("teamTitle");
+  let teamIcon = document.getElementById("teamIcon");
+  let teamDesc = document.getElementById("teamDesc");
+  let teamImage = document.getElementById("teamImage");
+  let teamOrder = document.getElementById("teamOrder");
+  let teamStatus = document.getElementById("teamStatus");
 
   const formData = new FormData();
 
-  formData.append("title", serviceTitle.value);
-  formData.append("description", serviceDesc.value);
-  formData.append("content", serviceContent.value);
-  formData.append("sort_order", serviceOrder.value);
-  formData.append("status", serviceStatus.value);
-  formData.append("icon", serviceIcon.value);
-  if (serviceImage.files[0]) {
-    formData.append("image", serviceImage.files[0]);0
+  formData.append("name", teamTitle.value);
+  formData.append("position", teamDesc.value);
+  formData.append("linkedin", teamIcon.value);
+  formData.append("sort_order", teamOrder.value);
+  formData.append("status", teamStatus.value);
+  if (teamImage.files[0]) {
+    formData.append("image", teamImage.files[0]);
+    0;
   }
 
   fetch(BASE_URL, {
@@ -110,17 +109,16 @@ function addService() {
       console.log(res);
 
       if (res.status) {
-        serviceTitle.value = "";
-        serviceIcon.value = "";
-        serviceDesc.value = "";
-        serviceImage.value = "";
-        serviceContent.value = "";
-        serviceOrder.value = "";
-        serviceStatus.value = "";
+        teamTitle.value = "";
+        teamIcon.value = "";
+        teamDesc.value = "";
+        teamImage.value = "";
+        teamOrder.value = "";
+        teamStatus.value = "";
 
         document.getElementById("modal").classList.add("hidden");
 
-        showToast("Service added successfully!");
+        showToast("Team added successfully!");
         getAllProducts();
       } else {
         showToast("Xəta baş verdi!", "error");
@@ -130,7 +128,7 @@ function addService() {
 
 // deleteProduct
 
-function deleteService(id) {
+function deleteTeam(id) {
   if (!confirm("Silmək istədiyinizə əminsiniz?")) return;
 
   fetch(`${BASE_URL}/${id}`, {
@@ -142,7 +140,7 @@ function deleteService(id) {
     .then((res) => res.json())
     .then((res) => {
       if (res.status) {
-        showToast("Service silindi!");
+        showToast("Team silindi!");
         getAllProducts();
       } else {
         showToast("Xəta baş verdi!", "error");
@@ -150,39 +148,39 @@ function deleteService(id) {
     });
 }
 
-// editService
-let editServiceId = document.getElementById("editServiceId");
-let editServiceImage = document.getElementById("editServiceImage");
-let editServiceTitle = document.getElementById("editServiceTitle");
-let editServiceDesc = document.getElementById("editServiceDesc");
-let editServiceIcon = document.getElementById("editServiceIcon");
+// editTeam
+let editTeamId = document.getElementById("editTeamId");
+let editTeamImage = document.getElementById("editTeamImage");
+let editTeamTitle = document.getElementById("editTeamTitle");
+let editTeamDesc = document.getElementById("editTeamDesc");
+let editTeamIcon = document.getElementById("editTeamIcon");
 
-function editService(id) {
+function editTeam(id) {
   const item = data.find((x) => x.id == id);
 
-  editServiceId.value = item.id;
-  editServiceTitle.value = item.title;
-  editServiceDesc.value = item.description;
-  editServiceIcon.value = item.icon;
+  editTeamId.value = item.id;
+  editTeamTitle.value = item.name;
+  editTeamDesc.value = item.position;
+  editTeamIcon.value = item.linkedin;
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function yenileService() {
-  const id = editServiceId.value;
+function yenileTeam() {
+  const id = editTeamId.value;
   if (!id) return alert("Mehsul secin!");
 
   const formData = new FormData();
 
-  formData.append("title", editServiceTitle.value);
-  formData.append("description", editServiceDesc.value);
-  formData.append("icon", editServiceIcon.value);
+  formData.append("name", editTeamTitle.value);
+  formData.append("position", editTeamDesc.value);
+  formData.append("linkedin", editTeamIcon.value);
 
-  if (editServiceImage.files[0]) {
-    formData.append("image", editServiceImage.files[0]);
+  if (editTeamImage.files[0]) {
+    formData.append("image", editTeamImage.files[0]);
   }
 
   fetch(`${BASE_URL}/${id}`, {
-    method: "POST", 
+    method: "POST",
     body: formData,
     headers: {
       Accept: "application/json",
@@ -202,7 +200,7 @@ function yenileService() {
 
 function updateForm() {
   formList.reset();
-  editServiceId.value = "";
+  editTeamId.value = "";
 }
 
 function showToast(message, type = "success") {

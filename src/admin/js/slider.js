@@ -172,7 +172,7 @@ function yenileSlider() {
   }
 
   fetch(`${BASE_URL}/${id}`, {
-    method: "POST", 
+    method: "POST",
     body: formData,
     headers: {
       Accept: "application/json",

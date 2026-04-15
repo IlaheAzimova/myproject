@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="../../output.css" />
-    <link rel="stylesheet" href="../../input.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -13,6 +12,15 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
     <title>Document</title>
   </head>
   <body>
@@ -319,7 +327,7 @@
                       <span>Projects</span>
                     </a>
                   </li>
-                   <li>
+                  <li>
                     <a
                       href="service.htm"
                       class="text-slate-800 text-[15px] font-medium flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all"
@@ -339,7 +347,7 @@
                   </li>
                   <li>
                     <a
-                      href="javascript:void(0)"
+                      href="team.htm"
                       class="text-slate-800 text-[15px] font-medium flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all"
                     >
                       <svg
@@ -357,7 +365,7 @@
                           data-original="#000000"
                         />
                       </svg>
-                      <span>About</span>
+                      <span>Team</span>
                     </a>
                   </li>
                 </ul>
@@ -444,6 +452,62 @@
           </nav>
 
           <div class="overflow-x-auto flex-1 pr-3">
+            <form id="formList" class="space-y-6 max-w-md mx-auto p-4">
+              <input type="hidden" id="editProjectId" />
+              <div class="flex items-center">
+                <label class="text-slate-400 font-medium w-36 text-sm"
+                  >Image</label
+                >
+                <input
+                  id="editProjectImage"
+                  type="file"
+                  class="px-2 py-2 w-full border-b border-gray-300 focus:border-slate-900 outline-none text-sm bg-white"
+                />
+              </div>
+              <div class="flex items-center">
+                <label class="text-slate-400 font-medium w-36 text-sm"
+                  >Title</label
+                >
+                <input
+                  id="editProjectTitle"
+                  type="text"
+                  placeholder="Enter your title"
+                  class="px-2 py-2 w-full border-b border-gray-300 focus:border-slate-900 outline-none text-sm bg-white"
+                />
+              </div>
+
+              <div class="flex items-center">
+                <label class="text-slate-400 font-medium w-36 text-sm"
+                  >Description</label
+                >
+                <input
+                  id="editProjectDesc"
+                  type="text"
+                  placeholder="Enter your description"
+                  class="px-2 py-2 w-full border-b border-gray-300 focus:border-slate-900 outline-none text-sm bg-white"
+                />
+              </div>
+
+              <div class="flex items-center">
+                <label class="text-slate-400 font-medium w-36 text-sm"
+                  >Icon</label
+                >
+                <input
+                  id="editProjectIcon"
+                  type="text"
+                  placeholder="Enter your icon"
+                  class="px-2 py-2 w-full border-b border-gray-300 focus:border-slate-900 outline-none text-sm bg-white"
+                />
+              </div>
+
+              <button
+                onclick="yenileProject()"
+                type="button"
+                class="!mt-12 px-6 py-2 w-full bg-slate-800 hover:bg-slate-900 text-sm font-medium text-white mx-auto block cursor-pointer"
+              >
+                Submit
+              </button>
+            </form>
             <div class="flex items-center justify-end mt-3">
               <button
                 id="openModal"
@@ -456,16 +520,19 @@
               <thead class="bg-gray-800 whitespace-nowrap">
                 <tr>
                   <th class="p-4 text-left text-sm font-medium text-white">
-                    Name
+                    Image
                   </th>
                   <th class="p-4 text-left text-sm font-medium text-white">
-                    Email
+                    Title
                   </th>
                   <th class="p-4 text-left text-sm font-medium text-white">
-                    Role
+                    Description
                   </th>
                   <th class="p-4 text-left text-sm font-medium text-white">
-                    Joined At
+                    Icon
+                  </th>
+                  <th class="p-4 text-left text-sm font-medium text-white">
+                    Status
                   </th>
                   <th class="p-4 text-left text-sm font-medium text-white">
                     Actions
@@ -473,8 +540,8 @@
                 </tr>
               </thead>
 
-              <tbody class="whitespace-nowrap">
-                <tr class="even:bg-blue-50">
+              <tbody id="project" class="whitespace-nowrap">
+                <!-- <tr class="even:bg-blue-50">
                   <td class="p-4 text-[15px] text-slate-900 font-medium">
                     John Doe
                   </td>
@@ -523,265 +590,11 @@
                       </button>
                     </div>
                   </td>
-                </tr>
-
-                <tr class="even:bg-blue-50">
-                  <td class="p-4 text-[15px] text-slate-900 font-medium">
-                    Jane Smith
-                  </td>
-                  <td class="p-4 text-[15px] text-slate-600 font-medium">
-                    jane@example.com
-                  </td>
-                  <td class="p-4 text-[15px] text-slate-600 font-medium">
-                    User
-                  </td>
-                  <td class="p-4 text-[15px] text-slate-600 font-medium">
-                    2022-07-20
-                  </td>
-                  <td class="p-4">
-                    <div class="flex items-center">
-                      <button class="mr-3 cursor-pointer" title="Edit">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="w-5 h-5 fill-blue-500 hover:fill-blue-700"
-                          viewBox="0 0 348.882 348.882"
-                        >
-                          <path
-                            d="m333.988 11.758-.42-.383A43.363 43.363 0 0 0 304.258 0a43.579 43.579 0 0 0-32.104 14.153L116.803 184.231a14.993 14.993 0 0 0-3.154 5.37l-18.267 54.762c-2.112 6.331-1.052 13.333 2.835 18.729 3.918 5.438 10.23 8.685 16.886 8.685h.001c2.879 0 5.693-.592 8.362-1.76l52.89-23.138a14.985 14.985 0 0 0 5.063-3.626L336.771 73.176c16.166-17.697 14.919-45.247-2.783-61.418zM130.381 234.247l10.719-32.134.904-.99 20.316 18.556-.904.99-31.035 13.578zm184.24-181.304L182.553 197.53l-20.316-18.556L294.305 34.386c2.583-2.828 6.118-4.386 9.954-4.386 3.365 0 6.588 1.252 9.082 3.53l.419.383c5.484 5.009 5.87 13.546.861 19.03z"
-                            data-original="#000000"
-                          />
-                          <path
-                            d="M303.85 138.388c-8.284 0-15 6.716-15 15v127.347c0 21.034-17.113 38.147-38.147 38.147H68.904c-21.035 0-38.147-17.113-38.147-38.147V100.413c0-21.034 17.113-38.147 38.147-38.147h131.587c8.284 0 15-6.716 15-15s-6.716-15-15-15H68.904C31.327 32.266.757 62.837.757 100.413v180.321c0 37.576 30.571 68.147 68.147 68.147h181.798c37.576 0 68.147-30.571 68.147-68.147V153.388c.001-8.284-6.715-15-14.999-15z"
-                            data-original="#000000"
-                          />
-                        </svg>
-                      </button>
-                      <button title="Delete" class="cursor-pointer">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="w-5 h-5 fill-red-500 hover:fill-red-700"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z"
-                            data-original="#000000"
-                          />
-                          <path
-                            d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z"
-                            data-original="#000000"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr class="even:bg-blue-50">
-                  <td class="p-4 text-[15px] text-slate-900 font-medium">
-                    Alen Doe
-                  </td>
-                  <td class="p-4 text-[15px] text-slate-600 font-medium">
-                    alen@example.com
-                  </td>
-                  <td class="p-4 text-[15px] text-slate-600 font-medium">
-                    User
-                  </td>
-                  <td class="p-4 text-[15px] text-slate-600 font-medium">
-                    2022-07-21
-                  </td>
-                  <td class="p-4">
-                    <div class="flex items-center">
-                      <button class="mr-3 cursor-pointer" title="Edit">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="w-5 h-5 fill-blue-500 hover:fill-blue-700"
-                          viewBox="0 0 348.882 348.882"
-                        >
-                          <path
-                            d="m333.988 11.758-.42-.383A43.363 43.363 0 0 0 304.258 0a43.579 43.579 0 0 0-32.104 14.153L116.803 184.231a14.993 14.993 0 0 0-3.154 5.37l-18.267 54.762c-2.112 6.331-1.052 13.333 2.835 18.729 3.918 5.438 10.23 8.685 16.886 8.685h.001c2.879 0 5.693-.592 8.362-1.76l52.89-23.138a14.985 14.985 0 0 0 5.063-3.626L336.771 73.176c16.166-17.697 14.919-45.247-2.783-61.418zM130.381 234.247l10.719-32.134.904-.99 20.316 18.556-.904.99-31.035 13.578zm184.24-181.304L182.553 197.53l-20.316-18.556L294.305 34.386c2.583-2.828 6.118-4.386 9.954-4.386 3.365 0 6.588 1.252 9.082 3.53l.419.383c5.484 5.009 5.87 13.546.861 19.03z"
-                            data-original="#000000"
-                          />
-                          <path
-                            d="M303.85 138.388c-8.284 0-15 6.716-15 15v127.347c0 21.034-17.113 38.147-38.147 38.147H68.904c-21.035 0-38.147-17.113-38.147-38.147V100.413c0-21.034 17.113-38.147 38.147-38.147h131.587c8.284 0 15-6.716 15-15s-6.716-15-15-15H68.904C31.327 32.266.757 62.837.757 100.413v180.321c0 37.576 30.571 68.147 68.147 68.147h181.798c37.576 0 68.147-30.571 68.147-68.147V153.388c.001-8.284-6.715-15-14.999-15z"
-                            data-original="#000000"
-                          />
-                        </svg>
-                      </button>
-                      <button title="Delete" class="cursor-pointer">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="w-5 h-5 fill-red-500 hover:fill-red-700"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z"
-                            data-original="#000000"
-                          />
-                          <path
-                            d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z"
-                            data-original="#000000"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr class="even:bg-blue-50">
-                  <td class="p-4 text-[15px] text-slate-900 font-medium">
-                    Kelwin mark
-                  </td>
-                  <td class="p-4 text-[15px] text-slate-600 font-medium">
-                    kelwin@example.com
-                  </td>
-                  <td class="p-4 text-[15px] text-slate-600 font-medium">
-                    User
-                  </td>
-                  <td class="p-4 text-[15px] text-slate-600 font-medium">
-                    2020-07-06
-                  </td>
-                  <td class="p-4">
-                    <div class="flex items-center">
-                      <button class="mr-3 cursor-pointer" title="Edit">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="w-5 h-5 fill-blue-500 hover:fill-blue-700"
-                          viewBox="0 0 348.882 348.882"
-                        >
-                          <path
-                            d="m333.988 11.758-.42-.383A43.363 43.363 0 0 0 304.258 0a43.579 43.579 0 0 0-32.104 14.153L116.803 184.231a14.993 14.993 0 0 0-3.154 5.37l-18.267 54.762c-2.112 6.331-1.052 13.333 2.835 18.729 3.918 5.438 10.23 8.685 16.886 8.685h.001c2.879 0 5.693-.592 8.362-1.76l52.89-23.138a14.985 14.985 0 0 0 5.063-3.626L336.771 73.176c16.166-17.697 14.919-45.247-2.783-61.418zM130.381 234.247l10.719-32.134.904-.99 20.316 18.556-.904.99-31.035 13.578zm184.24-181.304L182.553 197.53l-20.316-18.556L294.305 34.386c2.583-2.828 6.118-4.386 9.954-4.386 3.365 0 6.588 1.252 9.082 3.53l.419.383c5.484 5.009 5.87 13.546.861 19.03z"
-                            data-original="#000000"
-                          />
-                          <path
-                            d="M303.85 138.388c-8.284 0-15 6.716-15 15v127.347c0 21.034-17.113 38.147-38.147 38.147H68.904c-21.035 0-38.147-17.113-38.147-38.147V100.413c0-21.034 17.113-38.147 38.147-38.147h131.587c8.284 0 15-6.716 15-15s-6.716-15-15-15H68.904C31.327 32.266.757 62.837.757 100.413v180.321c0 37.576 30.571 68.147 68.147 68.147h181.798c37.576 0 68.147-30.571 68.147-68.147V153.388c.001-8.284-6.715-15-14.999-15z"
-                            data-original="#000000"
-                          />
-                        </svg>
-                      </button>
-                      <button title="Delete" class="cursor-pointer">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="w-5 h-5 fill-red-500 hover:fill-red-700"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z"
-                            data-original="#000000"
-                          />
-                          <path
-                            d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z"
-                            data-original="#000000"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr class="even:bg-blue-50">
-                  <td class="p-4 text-[15px] text-slate-900 font-medium">
-                    Dustin
-                  </td>
-                  <td class="p-4 text-[15px] text-slate-600 font-medium">
-                    dustin@example.com
-                  </td>
-                  <td class="p-4 text-[15px] text-slate-600 font-medium">
-                    User
-                  </td>
-                  <td class="p-4 text-[15px] text-slate-600 font-medium">
-                    2021-07-06
-                  </td>
-                  <td class="p-4">
-                    <div class="flex items-center">
-                      <button class="mr-3 cursor-pointer" title="Edit">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="w-5 h-5 fill-blue-500 hover:fill-blue-700"
-                          viewBox="0 0 348.882 348.882"
-                        >
-                          <path
-                            d="m333.988 11.758-.42-.383A43.363 43.363 0 0 0 304.258 0a43.579 43.579 0 0 0-32.104 14.153L116.803 184.231a14.993 14.993 0 0 0-3.154 5.37l-18.267 54.762c-2.112 6.331-1.052 13.333 2.835 18.729 3.918 5.438 10.23 8.685 16.886 8.685h.001c2.879 0 5.693-.592 8.362-1.76l52.89-23.138a14.985 14.985 0 0 0 5.063-3.626L336.771 73.176c16.166-17.697 14.919-45.247-2.783-61.418zM130.381 234.247l10.719-32.134.904-.99 20.316 18.556-.904.99-31.035 13.578zm184.24-181.304L182.553 197.53l-20.316-18.556L294.305 34.386c2.583-2.828 6.118-4.386 9.954-4.386 3.365 0 6.588 1.252 9.082 3.53l.419.383c5.484 5.009 5.87 13.546.861 19.03z"
-                            data-original="#000000"
-                          />
-                          <path
-                            d="M303.85 138.388c-8.284 0-15 6.716-15 15v127.347c0 21.034-17.113 38.147-38.147 38.147H68.904c-21.035 0-38.147-17.113-38.147-38.147V100.413c0-21.034 17.113-38.147 38.147-38.147h131.587c8.284 0 15-6.716 15-15s-6.716-15-15-15H68.904C31.327 32.266.757 62.837.757 100.413v180.321c0 37.576 30.571 68.147 68.147 68.147h181.798c37.576 0 68.147-30.571 68.147-68.147V153.388c.001-8.284-6.715-15-14.999-15z"
-                            data-original="#000000"
-                          />
-                        </svg>
-                      </button>
-                      <button title="Delete" class="cursor-pointer">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="w-5 h-5 fill-red-500 hover:fill-red-700"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z"
-                            data-original="#000000"
-                          />
-                          <path
-                            d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z"
-                            data-original="#000000"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr class="even:bg-blue-50">
-                  <td class="p-4 text-[15px] text-slate-900 font-medium">
-                    Jams david
-                  </td>
-                  <td class="p-4 text-[15px] text-slate-600 font-medium">
-                    jams@example.com
-                  </td>
-                  <td class="p-4 text-[15px] text-slate-600 font-medium">
-                    Candidate
-                  </td>
-                  <td class="p-4 text-[15px] text-slate-600 font-medium">
-                    2018-09-04
-                  </td>
-                  <td class="p-4">
-                    <div class="flex items-center">
-                      <button class="mr-3 cursor-pointer" title="Edit">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="w-5 h-5 fill-blue-500 hover:fill-blue-700"
-                          viewBox="0 0 348.882 348.882"
-                        >
-                          <path
-                            d="m333.988 11.758-.42-.383A43.363 43.363 0 0 0 304.258 0a43.579 43.579 0 0 0-32.104 14.153L116.803 184.231a14.993 14.993 0 0 0-3.154 5.37l-18.267 54.762c-2.112 6.331-1.052 13.333 2.835 18.729 3.918 5.438 10.23 8.685 16.886 8.685h.001c2.879 0 5.693-.592 8.362-1.76l52.89-23.138a14.985 14.985 0 0 0 5.063-3.626L336.771 73.176c16.166-17.697 14.919-45.247-2.783-61.418zM130.381 234.247l10.719-32.134.904-.99 20.316 18.556-.904.99-31.035 13.578zm184.24-181.304L182.553 197.53l-20.316-18.556L294.305 34.386c2.583-2.828 6.118-4.386 9.954-4.386 3.365 0 6.588 1.252 9.082 3.53l.419.383c5.484 5.009 5.87 13.546.861 19.03z"
-                            data-original="#000000"
-                          />
-                          <path
-                            d="M303.85 138.388c-8.284 0-15 6.716-15 15v127.347c0 21.034-17.113 38.147-38.147 38.147H68.904c-21.035 0-38.147-17.113-38.147-38.147V100.413c0-21.034 17.113-38.147 38.147-38.147h131.587c8.284 0 15-6.716 15-15s-6.716-15-15-15H68.904C31.327 32.266.757 62.837.757 100.413v180.321c0 37.576 30.571 68.147 68.147 68.147h181.798c37.576 0 68.147-30.571 68.147-68.147V153.388c.001-8.284-6.715-15-14.999-15z"
-                            data-original="#000000"
-                          />
-                        </svg>
-                      </button>
-                      <button title="Delete" class="cursor-pointer">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="w-5 h-5 fill-red-500 hover:fill-red-700"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z"
-                            data-original="#000000"
-                          />
-                          <path
-                            d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z"
-                            data-original="#000000"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                </tr> -->
               </tbody>
             </table>
           </div>
+
           <button
             id="toggle-sidebar"
             class="lg:hidden w-8 h-8 z-[100] fixed top-[74px] left-[10px] cursor-pointer bg-[#007bff] flex items-center justify-center rounded-full outline-0 transition-all duration-500"
@@ -801,6 +614,7 @@
         </div>
       </div>
     </div>
+
     <div>
       <div id="modal" class="hidden">
         >
@@ -833,12 +647,38 @@
 
             <form class="space-y-6 mt-8">
               <div>
-                <labe class="text-slate-900 text-sm mb-2 block"
-                  >Name of the product</labe
-                >
+                <labe class="text-slate-900 text-sm mb-2 block">Title</labe>
                 <input
+                  id="projectTitle"
                   type="text"
-                  placeholder="Enter product name"
+                  placeholder="Enter product title"
+                  class="px-4 py-3 bg-gray-100 w-full text-slate-900 text-sm border-none focus:outline-blue-600 focus:bg-transparent rounded-lg"
+                />
+              </div>
+              <div>
+                <labe class="text-slate-900 text-sm mb-2 block">Order</labe>
+                <input
+                  id="projectOrder"
+                  type="number"
+                  placeholder="Enter product order"
+                  class="px-4 py-3 bg-gray-100 w-full text-slate-900 text-sm border-none focus:outline-blue-600 focus:bg-transparent rounded-lg"
+                />
+              </div>
+              <div>
+                <labe class="text-slate-900 text-sm mb-2 block">Status</labe>
+                <input
+                  id="projectStatus"
+                  type="number"
+                  placeholder="Enter product status"
+                  class="px-4 py-3 bg-gray-100 w-full text-slate-900 text-sm border-none focus:outline-blue-600 focus:bg-transparent rounded-lg"
+                />
+              </div>
+              <div>
+                <labe class="text-slate-900 text-sm mb-2 block">Content</labe>
+                <input
+                  id="projectContent"
+                  type="text"
+                  placeholder="Enter product content"
                   class="px-4 py-3 bg-gray-100 w-full text-slate-900 text-sm border-none focus:outline-blue-600 focus:bg-transparent rounded-lg"
                 />
               </div>
@@ -848,42 +688,34 @@
                   >Descriptions</labe
                 >
                 <textarea
+                  id="projectDesc"
                   placeholder="Write about the product"
                   class="px-4 py-3 bg-gray-100 w-full text-slate-900 text-sm border-none focus:outline-blue-600 focus:bg-transparent rounded-lg"
                   rows="3"
                 ></textarea>
               </div>
-
-              <div>
-                <labe class="text-slate-900 text-sm mb-2 block"
-                  >Selling price</labe
-                >
-                <input
-                  type="number"
-                  placeholder="Enter price"
-                  class="px-4 py-3 bg-gray-100 w-full text-slate-900 text-sm border-none focus:outline-blue-600 focus:bg-transparent rounded-lg"
-                />
-              </div>
-
-              <div>
-                <labe class="text-slate-900 text-sm mb-2 block">Category</labe>
-                <input
-                  type="number"
-                  placeholder="Enter product category"
-                  class="px-4 py-3 bg-gray-100 w-full text-slate-900 text-sm border-none focus:outline-blue-600 focus:bg-transparent rounded-lg"
-                />
-              </div>
               <div>
                 <labe class="text-slate-900 text-sm mb-2 block">Image</labe>
                 <input
-                  type="url"
-                  placeholder="Enter product category"
+                  id="projectImage"
+                  type="file"
+                  placeholder="Enter product image"
+                  class="px-4 py-3 bg-gray-100 w-full text-slate-900 text-sm border-none focus:outline-blue-600 focus:bg-transparent rounded-lg"
+                />
+              </div>
+              <div>
+                <labe class="text-slate-900 text-sm mb-2 block">Icon</labe>
+                <input
+                  id="projectIcon"
+                  type="text"
+                  placeholder="Enter product icon"
                   class="px-4 py-3 bg-gray-100 w-full text-slate-900 text-sm border-none focus:outline-blue-600 focus:bg-transparent rounded-lg"
                 />
               </div>
 
               <div class="flex gap-4 !mt-8">
                 <button
+                  onclick="addProject()"
                   type="button"
                   class="px-6 py-3 rounded-lg cursor-pointer text-white text-sm font-medium border-none outline-none tracking-wide bg-blue-600 hover:bg-blue-700"
                 >
@@ -903,5 +735,6 @@
       </div>
     </div>
     <script src="../js/admin.js"></script>
+    <script src="../js/projects.js"></script>
   </body>
 </html>
