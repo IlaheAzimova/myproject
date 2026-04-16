@@ -19,9 +19,7 @@ function render(data) {
                   <td class="p-4 text-[15px] text-slate-600 font-medium">
                      ${item.position}
                   </td>
-                  <td class="p-4 text-[15px] text-slate-600 font-medium">
-                      ${item.linkedin}
-                  </td>
+                
                   <td class="p-4 text-[15px] text-slate-600 font-medium"> ${item.status == 1 ? "Aktiv" : "DeAktiv"}
                   <td class="p-4">
                     <div class="flex items-center">
@@ -78,19 +76,19 @@ function getAllProducts() {
 // postProduct
 
 function addTeam() {
-  let teamTitle = document.getElementById("teamTitle");
-  let teamIcon = document.getElementById("teamIcon");
-  let teamDesc = document.getElementById("teamDesc");
+  let teamName = document.getElementById("teamName");
+  // let teamLink = document.getElementById("teamLink");
+  let teamPosition = document.getElementById("teamPosition");
   let teamImage = document.getElementById("teamImage");
   let teamOrder = document.getElementById("teamOrder");
   let teamStatus = document.getElementById("teamStatus");
-
   const formData = new FormData();
 
-  formData.append("name", teamTitle.value);
-  formData.append("position", teamDesc.value);
-  formData.append("linkedin", teamIcon.value);
-  formData.append("sort_order", teamOrder.value);
+
+  formData.append("name", teamName.value);
+  formData.append("position", teamPosition.value);
+  // formData.append("linkedin", teamLink.value);
+  formData.append("order_rank", teamOrder.value);
   formData.append("status", teamStatus.value);
   if (teamImage.files[0]) {
     formData.append("image", teamImage.files[0]);
@@ -109,9 +107,9 @@ function addTeam() {
       console.log(res);
 
       if (res.status) {
-        teamTitle.value = "";
-        teamIcon.value = "";
-        teamDesc.value = "";
+        teamName.value = "";
+        // teamLink.value = "";
+        teamPosition.value = "";
         teamImage.value = "";
         teamOrder.value = "";
         teamStatus.value = "";
@@ -151,17 +149,17 @@ function deleteTeam(id) {
 // editTeam
 let editTeamId = document.getElementById("editTeamId");
 let editTeamImage = document.getElementById("editTeamImage");
-let editTeamTitle = document.getElementById("editTeamTitle");
-let editTeamDesc = document.getElementById("editTeamDesc");
-let editTeamIcon = document.getElementById("editTeamIcon");
+let editTeamName = document.getElementById("editTeamName");
+let editTeamPosition = document.getElementById("editTeamPosition");
+// let editTeamLink = document.getElementById("editTeamLink");
 
 function editTeam(id) {
   const item = data.find((x) => x.id == id);
 
   editTeamId.value = item.id;
-  editTeamTitle.value = item.name;
-  editTeamDesc.value = item.position;
-  editTeamIcon.value = item.linkedin;
+  editTeamName.value = item.name;
+  editTeamPosition.value = item.position;
+  // editTeamLink.value = item.linkedin;
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -171,9 +169,9 @@ function yenileTeam() {
 
   const formData = new FormData();
 
-  formData.append("name", editTeamTitle.value);
-  formData.append("position", editTeamDesc.value);
-  formData.append("linkedin", editTeamIcon.value);
+  formData.append("name", editTeamName.value);
+  formData.append("position", editTeamPosition.value);
+  // formData.append("linkedin", editTeamLink.value);
 
   if (editTeamImage.files[0]) {
     formData.append("image", editTeamImage.files[0]);

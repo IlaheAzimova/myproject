@@ -117,6 +117,7 @@ function renderTeam(data) {
         <p class="text-gray-600 mb-3 line-clamp-3">
           ${item.position}
         </p>
+      
 
        
       </div>
