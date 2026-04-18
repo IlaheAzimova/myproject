@@ -1,47 +1,762 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/css/splide.min.css"
-    />
-    <link rel="stylesheet" href="src/output.css" />
-    <link rel="stylesheet" href="src/input.css" />
-    <link rel="stylesheet" href="src/style.css" />
-    <title>BizMax</title>
-  </head>
-  <body>
-    <a href="adminLogin.htm">Admin</a>
-    <section id="servicesSection">
-      <h1 class="text-2xl font-bold text-center mb-2">Services</h1>
-      <div
-        id="serviceIndex"
-        class="container flex flex-wrap gap-6 justify-between"
-      ></div>
-    </section>
-    <section>
-      <h1 class="text-2xl font-bold text-center mb-2">News</h1>
-      <div id="newsIndex" class="flex flex-wrap gap-6 justify-center"></div>
-    </section>
-    <section>
-      <h1 class="text-2xl font-bold text-center mb-2">Slider</h1>
-      <div id="sliderIndex" class="flex flex-wrap gap-6 justify-center"></div>
-    </section>
-    <section>
-      <h1 class="text-2xl font-bold text-center mb-2">Team</h1>
-      <div id="teamIndex" class="flex flex-wrap gap-6 justify-center"></div>
-    </section>
-    <script src="src/script.js"></script>
-    <script src="src/admin/js/service.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/css/splide.min.css" />
+  <link rel="stylesheet" href="src/output.css" />
+  <link rel="stylesheet" href="src/input.css" />
+  <link rel="stylesheet" href="src/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <title>BizMax</title>
+</head>
+
+<body>
+
+  <header class="fixed top-0 z-50 w-[100%]">
+    <nav class="bg-[#18191d] text-[#fff] py-2">
+      <div class="flex items-center justify-between px-5">
+        <ul class="hidden xl:flex items-center gap-3 text-[12px]">
+          <li>Address: 3517 W. Gray St. Utica, Pennsylvania 57867</li>/
+          <li>info@company.com</li>
+        </ul>
+        <ul class="flex items-center justify-center mx-auto gap-5 justify-center text-[12px]">
+          <li><a href="">Help</a></li>/
+          <li><a href="">Support</a></li>/
+          <li><a href="">Contact</a></li>
+        </ul>
+      </div>
+
+
+    </nav>
+    <div class="bg-[#18191de2]">
+      <div class="container px-2 py-4">
+        <div class="flex items-center justify-between">
+          <div class="logo">
+            <img src="img/logo.svg" alt="">
+
+          </div>
+          <div class="hidden xl:flex desktop-menu ">
+            <ul class="text-white flex items-center gap-10 font-[500]">
+              <li><a href="" class="hover:text-[#e9a132] duration-300">HOME+</a></li>
+              <li><a href="" class="hover:text-[#e9a132] duration-300">ABOUT</a></li>
+              <li><a href="" class="hover:text-[#e9a132] duration-300">PAGES+</a></li>
+              <li><a href="" class="hover:text-[#e9a132] duration-300">SERVICES</a></li>
+              <li><a href="" class="hover:text-[#e9a132] duration-300">PORTFOLIO</a></li>
+              <li><a href="" class="hover:text-[#e9a132] duration-300">BLOG+</a></li>
+              <li><a href="" class="hover:text-[#e9a132] duration-300">CONTACT</a></li>
+            </ul>
+
+          </div>
+          <div class="flex xl:hidden items-center gap-3 text-[30px] text-white">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <i id="menubar" class="fa-solid fa-bars"></i>
+            <i id="closemenu" class="fa-solid fa-xmark" style="display: none;"></i>
+
+          </div>
+          <div class="flex items-center gap-3 hidden md:hidden lg:flex">
+            <p><i class="fa-solid fa-magnifying-glass text-white text-2xl"></i></p>
+            <p><i class="fa-solid fa-phone text-[#e9a132] text-2xl"></i></p>
+            <div class="text-white font-[500] text-[.8em]">
+              <p>Need help? Call us:</p>
+              <p>(+800) 1234 5678 90</p>
+            </div>
+          </div>
+
+
+        </div>
+
+
+      </div>
+      <div id="menuopen" class="bg-[#181818]" style="display: none; ">
+        <ul class="text-white uppercase gap-5 flex flex-col p-2">
+          <li class="flex items-center justify-between"><a href="">Home</a>
+            <span class="text-[20px]">+</span>
+          </li>
+          <li><a href="">About</a></li>
+          <li class="flex items-center justify-between"><a href="">Pages</a>
+            <span class="text-[20px]">+</span>
+          </li>
+          <li><a href="">Services</a></li>
+          <li><a href="">Portfolio</a></li>
+          <li class="flex items-center justify-between"><a href="">Blog</a>
+            <span class="text-[20px]">+</span>
+          </li>
+          <li><a href="">Contact</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </header>
+
+  <section>
+
+    <!-- Swiper -->
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div id="slide" class="swiper-slide"
+          style="background: linear-gradient(rgba(0, 0, 0, 0.455), rgba(0, 0, 0, 0.7)),url('img/hero_slider_1.jpeg'); background-size: cover; background-position: center; height: 100vh; ">
+          <div
+            class="cs_hero_shape_1 position-absolute bottom-0 d-flex align-items-end h-100 cs_zindex_1 right-0 absolute">
+            <svg width="434" height="759" viewBox="0 0 434 759" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M240 0H660L430 759H0L240 0Z" fill="url(#paint0_linear_81_287)"></path>
+              <defs>
+                <linearGradient id="paint0_linear_81_287" x1="145" y1="256.5" x2="484" y2="738"
+                  gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#D9D9D9" stop-opacity="0" offset="none"></stop>
+                  <stop offset="1" stop-color="#E9A132"></stop>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="container px-5 my-10 flex flex-col gap-4 py-60">
+            <h3 class="text-[18px] font-bold text-white">This Week Only for World Premier</h3>
+            <h1 class="text-4xl xl:text-[60px] w-[70%] font-bold text-white">Inventive and interested in innovation</h1>
+            <p class="text-white">
+              I have been a loyal customer of this auto parts company for years and I cannot <br>recommend them enough.
+              Their extensive selection of high-quality parts and </p>
+            <button href=""
+              class="bg-[#e9a132] hover:bg-[#ce9f02] duration-300 w-[150px] rounded-lg text-white py-2 px-4 rounded">Get
+              a
+              Quote</button>
+          </div>
+        </div>
+        <div id="slide" class="swiper-slide relative"
+          style="background:linear-gradient(rgba(0, 0, 0, 0.455), rgba(0, 0, 0, 0.7)),url('img/hero_slider_2.jpeg'); background-size: cover; background-position: center; height: 100vh;">
+
+          <div
+            class="cs_hero_shape_1 position-absolute bottom-0 d-flex align-items-end h-100 cs_zindex_1 absolute right-0 ">
+            <svg width="434" height="759" viewBox="0 0 434 759" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M240 0H660L430 759H0L240 0Z" fill="url(#paint0_linear_81_287)"></path>
+              <defs>
+                <linearGradient id="paint0_linear_81_287" x1="145" y1="256.5" x2="484" y2="738"
+                  gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#D9D9D9" stop-opacity="0" offset="none"></stop>
+                  <stop offset="1" stop-color="#E9A132"></stop>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="container px-5 my-10 flex flex-col gap-4 py-60">
+            <h3 class="text-[18px] font-bold text-white">This Week Only for World Premier</h3>
+            <h1 class="text-4xl xl:text-[60px] w-[70%] font-bold text-white">Inventive and interested in innovation</h1>
+            <p class="text-white">
+              I have been a loyal customer of this auto parts company for years and I cannot <br>recommend them enough.
+              Their extensive selection of high-quality parts and </p>
+            <button href=""
+              class="bg-[#e9a132] hover:bg-[#ce9f02] duration-300  w-[150px] rounded-lg text-white py-2 px-4 rounded">Get
+              a Quote</button>
+          </div>
+
+        </div>
+        <div id="slide" class="swiper-slide"
+          style="background: linear-gradient(rgba(0, 0, 0, 0.455), rgba(0, 0, 0, 0.7)),url('img/hero_slider_3.jpeg'); background-size: cover; background-position: center; height: 100vh; ">
+          <div
+            class="cs_hero_shape_1 position-absolute bottom-0 d-flex align-items-end h-100 cs_zindex_1 right-0 absolute">
+            <svg width="434" height="759" viewBox="0 0 434 759" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M240 0H660L430 759H0L240 0Z" fill="url(#paint0_linear_81_287)"></path>
+              <defs>
+                <linearGradient id="paint0_linear_81_287" x1="145" y1="256.5" x2="484" y2="738"
+                  gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#D9D9D9" stop-opacity="0" offset="none"></stop>
+                  <stop offset="1" stop-color="#E9A132"></stop>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="container px-5 my-10 flex flex-col gap-4 py-60">
+            <h3 class="text-[18px] font-bold text-white">This Week Only for World Premier</h3>
+            <h1 class="text-4xl xl:text-[60px] w-[70%] font-bold text-white">Inventive and interested in innovation</h1>
+            <p class="text-white">
+              I have been a loyal customer of this auto parts company for years and I cannot <br>recommend them enough.
+              Their extensive selection of high-quality parts and </p>
+            <button href=""
+              class="bg-[#e9a132] hover:bg-[#ce9f02] duration-300  w-[150px] rounded-lg text-white py-2 px-4 rounded">Get
+              a Quote</button>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+
+
+
+      <div class="swiper-button-next "></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- <h1 class="text-2xl font-bold text-center mb-2">Slider</h1>
+    <div id="sliderIndex" class="flex flex-wrap gap-6 justify-center"></div> -->
+  </section>
+  <section id="servicesSection" class="py-20">
+    <a href="adminLogin.htm" class="text-[#f7f7f7]">Admin</a>
+    <div class="container w-[90%] mx-auto">
+      <div class="text lg:flex items-center justify-between ">
+        <div class="flex flex-col">
+          <h3 class="capitalize text-[#e9a132] text-[18px]">Our Service list</h3>
+          <h2 class="text-[#18191d] text-[36px] font-[600]">We Provide The Solution <br>For Our Clients</h2>
+        </div>
+        <div class="lg:w-[40%]">
+          <p class="text-[#666] py-3 text-[16px] ">I have been a loyal customer of this auto parts company for
+            years and
+            I
+            cannot recommend them enough. Their extensive selection of high-quality parts and accessories.</p>
+        </div>
+
+      </div>
+      <hr class="bg-[#e9a132] border-0 h-[3px] mt-5">
+      <div class="cards flex flex-col gap-5 lg:flex-row">
+        <div class="card bg-white border-0 shadow-2xl p-8 rounded-lg">
+
+          <div class="flex items-center">
+            <span class="bg-[#18191d]  hover:bg-[#e9a132] duration-300 rounded-lg py-3  px-2"> <i
+                class="fa-solid fa-book text-[30px] text-white "></i></span>
+            <p class="text-[#18191d] font-[600] text-[18px] px-2">Accounting and Bookkeeping</p>
+          </div>
+          <p class="text-[#666] text-[16px] py-3">Services related to financial record-keeping, bookkeeping,
+            preparation.</p>
+          <img src="img/service_1.jpeg" alt="" class="h-[30vh] w-[100%] object-cover">
+
+        </div>
+        <hr class="bg-[#e9a132] border-0 h-[3px] mt-5">
+
+        <div class="card bg-white border-0 shadow-2xl p-8 rounded-lg">
+
+          <div class="flex items-center">
+            <span class="bg-[#18191d]  hover:bg-[#e9a132] duration-300 rounded-lg py-3  px-2"><i
+                class="fa-regular fa-circle-question text-white text-[30px]"></i></span>
+            <p class="text-[#18191d] font-[600] text-[18px] px-2">IT support and Consulting</p>
+          </div>
+          <p class="text-[#666] text-[16px] py-3">Services related to financial record-keeping, bookkeeping,
+            preparation.</p>
+          <img src="img/service_2.jpeg" alt="" class="h-[30vh] w-[100%] object-cover">
+
+        </div>
+        <hr class="bg-[#e9a132] border-0 h-[3px] mt-5">
+        <div class="card bg-white border-0 shadow-2xl p-8 rounded-lg">
+          <div class="flex items-center">
+            <span class="bg-[#18191d]  hover:bg-[#e9a132] duration-300 rounded-lg py-3  px-2"> <i
+                class="fa-brands fa-adversal text-white text-[30px]"></i></span>>
+            <p class="text-[#18191d] font-[600] text-[18px] px-2">Marketing and Advertising</p>
+          </div>
+          <p class="text-[#666] text-[16px] py-3">Services related to financial record-keeping, bookkeeping,
+            preparation.</p>
+          <img src="img/service_3.jpeg" alt="" class="h-[30vh] w-[100%] object-cover">
+
+        </div>
+        <hr class="bg-[#e9a132] border-0 h-[3px] mt-5">
+        <div class="card bg-white border-0 shadow-2xl p-8 rounded-lg">
+          <div class="flex items-center">
+            <span class="bg-[#18191d]  hover:bg-[#e9a132] duration-300 rounded-lg py-3  px-2"> <i
+                class="fa-solid fa-magnifying-glass-chart text-white text-[30px]"></i></span>>
+            <p class="text-[#18191d] font-[600] text-[18px] px-2">Human Resources</p>
+          </div>
+          <p class="text-[#666] text-[16px] py-3">Services related to financial record-keeping, bookkeeping,
+            preparation.</p>
+          <img src="img/service_4.jpeg" alt="" class="h-[30vh] w-[100%] object-cover">
+
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <p class="text-center text-[#18191d] text-[24px] mt-15 font-[500] ">Digital agency services built specifically
+          for
+          your
+          business</p>
+        <button
+          class="bg-[#e9a132] w-[200px] mx-auto text-[16px] hover:bg-[#18191d] mt-5 justify-center text-white font-[600] py-3 px-6 rounded-3xl transition duration-300">Find
+          More Services</button>
+
+      </div>
+    </div>
+  </section>
+  <section id="about">
+    <div class="lg:flex">
+      <div class="relative">
+        <img src="img/experience_img.jpeg" alt="" class="w-[90%] mx-auto rounded-xl">
+        <div style="background: url('img/experience_bg.jpeg') center/cover; height: 40vh;"
+          class="w-[50%] absolute top-90 right-2 ">
+          <div class="text-center py-23">
+            <img src="img/experience_icon.svg" alt="" class="mx-auto">
+            <h4 class="text-[35px] font-[600]">40 +</h4>
+            <p class="text-[20px]">Work Experience</p>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="lg:w-[50%]">
+        <div class="text mt-20  w-[90%] mx-auto lg:flex items-center justify-between ">
+          <div class="flex flex-col">
+            <h3 class="capitalize text-[#e9a132] text-[18px]">About Us</h3>
+            <h2 class="text-[#18191d] text-[36px] font-[600]">Get Ready for Success with <span
+                class="text-[#e9a132]">Bizmax</span> Your Path to Growth.</h2>
+            <p class="text-[#666] py-3 text-[16px] ">Providing legal advice, contract drafting, compliance assistance,
+              intellectual property protection, and other legal support for businesses. Creating visual content, such as
+              logos, brochures, infographics, and other branding materials.</p>
+          </div>
+
+
+        </div>
+        <div>
+          <div class="flex items-center justify-between w-[90%] mx-auto">
+            <h3 class="text-[#18191d] font-[600] text-[18px]">Web Development</h3>
+            <span class="text-[#666] font-[500] text-[18px]">90%</span>
+
+          </div>
+
+          <div class="w-[90%] mx-auto my-2 bg-[#e0e0e0] rounded-full h-2">
+            <div class="bg-[#e9a132] h-2 rounded-full" style="width: 90%"></div>
+          </div>
+          <div class="flex flex-col w-[90%] gap-3 mx-auto my-5 lg:flex-row lg:items-center">
+            <div>
+              <div class="flex items-center">
+                <span class="bg-[#e9a132] rounded-[50%] p-1">
+                  <i class="fa-solid fa-angles-right "></i>
+                </span>
+                <h2 class="text-[#18191d] font-[600] text-[16px] px-2">Accounting and Bookkeeping</h2>
+              </div>
+              <p class="my-2 text-[#666] text-[16px]">Services related to financial record-keeping, bookkeeping.</p>
+
+            </div>
+
+            <div>
+              <div class="flex items-center">
+                <span class="bg-[#e9a132] rounded-[50%] p-1">
+                  <i class="fa-solid fa-angles-right "></i>
+                </span>
+                <h2 class="text-[#18191d] font-[600] text-[16px] px-2">Human Resources (HR) Consulting</h2>
+
+
+              </div>
+              <p class="my-2 text-[#666] text-[16px]">Assistance with HR-related tasks such as recruitment.</p>
+
+            </div>
+
+          </div>
+          <div class="flex items-center gap-5 w-[90%] mx-auto">
+            <button href=""
+              class="bg-[#e9a132] hover:bg-[#ce9f02] duration-300 w-[150px] rounded-md text-white py-2 px-4 rounded">Get
+              a
+              Quote</button>
+            <div class="flex items-center">
+              <i class="fa-solid fa-circle-play text-[#18191d] text-[40px]"></i>
+              <span class="text-[#666] font-[500] text-[16px] px-2 ">Watch the Video</span>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+  </section>
+
+
+  <!-- Why choose us -->
+
+  <div class="flex items-center justify-between my-10">
+    <div class="flex flex-col gap-10 w-full xl:w-[50%] min-h-[100vh] px-10 py-15"
+      style="background-image: url('https://html.laralink.com/bizmax/assets/img/why_choose_us_left_img.jpeg');">
+      <div class="flex flex-col gap-8">
+        <p class="text-[#f1a325] text-lg">Why Choose Us</p>
+        <h1 class="text-white text-5xl font-bold">Developing a <span class="text-[#f1a325]">design that is
+            easy</span> to use and navigate</h1>
+        <p class="text-white">Providing legal advice, contract drafting, compliance assistance, intellectual
+          property protection, and other legal support for businesses. Creating visual content, such as
+          logos, brochures, infographics.</p>
+      </div>
+      <div class="flex flex-col gap-7">
+        <div class="flex gap-7">
+          <div class="flex gap-3 w-60">
+            <div
+              class="bg-[#f1a325] hover:bg-[#383a3e] duration-300 w-16 h-16 rounded-lg flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-desktop text-white text-3xl "></i>
+            </div>
+            <h2 class="text-white font-bold text-xl">Digital agency services</h2>
+          </div>
+          <div class="flex gap-3 w-60">
+            <div
+              class="bg-[#f1a325] hover:bg-[#383a3e] duration-300 w-16 h-16 rounded-lg flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-leaf text-white text-3xl"></i>
+            </div>
+            <h2 class="text-white font-bold text-xl">Creative digital agency</h2>
+          </div>
+        </div>
+        <div class="flex gap-7">
+          <div class="flex gap-3 w-60">
+            <div
+              class="bg-[#f1a325] hover:bg-[#383a3e] duration-300 w-16 h-16 rounded-lg flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-mug-saucer text-white text-3xl"></i>
+            </div>
+            <h2 class="text-white font-bold text-xl">Super expert developers</h2>
+          </div>
+          <div class="flex gap-3 w-60">
+            <div
+              class="bg-[#f1a325] hover:bg-[#383a3e] duration-300 w-16 h-16 rounded-lg flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-paintbrush text-white text-3xl"></i>
+            </div>
+            <h2 class="text-white font-bold text-xl">Creating a user friendly design</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hidden xl:flex w-[50%]">
+      <img src="https://html.laralink.com/bizmax/assets/img/why_choose_us_right_img.jpeg"
+        class="h-[100vh] object-cover">
+    </div>
+  </div>
+  <!-- Testimonial -->
+
+  <section class="container flex flex-wrap gap-5 items-center justify-between p-10 w-full" style="
+        background-image: url(&quot;https://html.laralink.com/bizmax/assets/img/testimonial_bg.jpeg&quot;);">
+    <div class="flex flex-col items-start justify-start gap-3 max-w-100">
+      <p class="text-[#f1a325] text-lg">Testimonial</p>
+      <h1 class="text-black text-4xl font-bold">What They're Saying?</h1>
+      <p class="text-black text-md">
+        Providing legal advice, contract drafting, compliance assistance,
+        intellectual property protection, and other legal support for
+        businesses.
+      </p>
+    </div>
+    <div class="flex items-center justify-between">
+      <swiper-container class="w-[400px] h-[400px]" pagination='{"clickable": true}' autoplay='{"delay":3000}'
+        space-between="10" slides-per-view="1">
+        <swiper-slide>
+          <div
+            class="cards flex items-center justify-between w-full max-w-90 h-full min-h-100 bg-[#f8f6f6] rounded-3xl">
+            <div class="flex-col items-start justify-start p-7">
+              <div class="img-card flex flex-col items-start mb-3">
+                <img src="https://html.laralink.com/bizmax/assets/img/avatar_1.png"
+                  class="w-[80px] h-[80px] border border-2 border-gray-500 rounded-full object-cover mb-3" />
+                <p>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i><i class="fa-solid fa-star"
+                    style="color: #ffd43b"></i><i class="fa-solid fa-star" style="color: #ffd43b"></i><i
+                    class="fa-solid fa-star" style="color: #ffd43b"></i><i class="fa-solid fa-star"
+                    style="color: #ffd53ba4"></i>
+                </p>
+              </div>
+              <div class="text-card text-left">
+                <p class="text-black text-md pb-5">
+                  I have been using [business name] for the past year and I am
+                  so glad I did. Their products and services are top-notch and
+                  their customer service is amazing. I would highly recommend
+                  them to anyone
+                </p>
+                <h4 class="text-[#102047] text-lg font-semibold mb-2">
+                  Darlene Robertson
+                </h4>
+                <p class="text-gray-400 text-md">Web design</p>
+              </div>
+            </div>
+          </div>
+        </swiper-slide>
+        <swiper-slide>
+          <div
+            class="cards flex items-center justify-between w-full max-w-90 h-full min-h-100 bg-[#f8f6f6] rounded-3xl">
+            <div class="flex-col items-start justify-start p-7">
+              <div class="img-card flex flex-col items-start mb-3">
+                <img src="https://html.laralink.com/bizmax/assets/img/avatar_2.png"
+                  class="w-[80px] h-[80px] border border-2 border-gray-500 rounded-full object-cover mb-3" />
+                <p>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i><i class="fa-solid fa-star"
+                    style="color: #ffd43b"></i><i class="fa-solid fa-star" style="color: #ffd43b"></i><i
+                    class="fa-solid fa-star" style="color: #ffd43b"></i><i class="fa-solid fa-star"
+                    style="color: #ffd43b"></i>
+                </p>
+              </div>
+              <div class="text-card text-left">
+                <p class="text-black text-md pb-5">
+                  I have been using [business name] for the past year and I am
+                  so glad I did. Their products and services are top-notch and
+                  their customer service is amazing. I would highly recommend
+                  them to anyone
+                </p>
+                <h4 class="text-[#102047] text-lg font-semibold mb-2">
+                  Carol McCharty
+                </h4>
+                <p class="text-gray-400 text-md">
+                  Product manager
+                </p>
+              </div>
+            </div>
+          </div>
+        </swiper-slide>
+        <swiper-slide>
+          <div class="swiper-slide">
+            <div
+              class="cards flex items-center justify-between w-full max-w-90 h-full min-h-100 bg-[#f8f6f6] rounded-3xl">
+              <div class="flex-col items-start justify-start p-7">
+                <div class="img-card flex flex-col items-start mb-3">
+                  <img src="https://html.laralink.com/bizmax/assets/img/avatar_3.png"
+                    class="w-[80px] h-[80px] border border-2 border-gray-500 rounded-full object-cover mb-3" />
+                  <p>
+                    <i class="fa-solid fa-star" style="color: #ffd43b"></i><i class="fa-solid fa-star"
+                      style="color: #ffd43b"></i><i class="fa-solid fa-star" style="color: #ffd43b"></i><i
+                      class="fa-solid fa-star" style="color: #ffd43b"></i><i class="fa-solid fa-star"
+                      style="color: #ffd43b"></i>
+                  </p>
+                </div>
+                <div class="text-card text-left">
+                  <p class="text-black text-md pb-5">
+                    I have been using [business name] for the past year and I am
+                    so glad I did. Their products and services are top-notch and
+                    their customer service is amazing. I would highly recommend
+                    them to anyone
+                  </p>
+                  <h4 class="text-[#102047] text-lg font-semibold mb-2">
+                    Peter Johnson
+                  </h4>
+                  <p class="text-gray-400 text-md">
+                    Web developer
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </swiper-slide>
+        <swiper-slide>
+          <div class="cards flex items-center justify-center w-full max-w-90 h-full min-h-100 bg-[#f8f6f6] rounded-3xl">
+            <div class="flex-col items-start justify-start p-7">
+              <div class="img-card flex flex-col items-start mb-3">
+                <img src="https://html.laralink.com/bizmax/assets/img/avatar_4.png"
+                  class="w-[80px] h-[80px] border border-2 border-gray-500 rounded-full object-cover mb-3" />
+                <p>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i><i class="fa-solid fa-star"
+                    style="color: #ffd43b"></i><i class="fa-solid fa-star" style="color: #ffd43b"></i><i
+                    class="fa-solid fa-star" style="color: #ffd43b"></i><i class="fa-solid fa-star-half"
+                    style="color: #ffd43b"></i>
+                </p>
+              </div>
+              <div class="text-card text-left">
+                <p class="text-black text-md pb-5">
+                  I have been using [business name] for the past year and I am
+                  so glad I did. Their products and services are top-notch and
+                  their customer service is amazing. I would highly recommend
+                  them to anyone
+                </p>
+                <h4 class="text-[#102047] text-lg font-semibold mb-2">
+                  Max Lawrence
+                </h4>
+                <p class="text-gray-400 text-md">
+                  Digital marketing
+                </p>
+              </div>
+            </div>
+          </div>
+        </swiper-slide>
+      </swiper-container>
+    </div>
+  </section>
+
+  <!-- Contact us -->
+
+  <div
+    class="card flex items-center justify-center xl:justify-between flex-wrap py-10 px-5 xl:px-0 xl:py-0 xl:pt-25 xl:pl-20 w-full h-full"
+    style="background-image: url('https://html.laralink.com/bizmax/assets/img/cta_bg.jpeg');">
+    <div class="flex flex-col gap-10 w-full xl:w-[440px] mb-25">
+      <div class="flex flex-col gap-8">
+        <p class="text-[#f1a325] text-lg">Contact With Us</p>
+        <h1 class="text-white text-5xl font-bold">Let's Work Together?</h1>
+        <p class="text-white">Providing legal advice, contract drafting, compliance assistance, intellectual
+          property protection, and other legal support for businesses.</p>
+      </div>
+      <div class="flex flex-col gap-10">
+        <div class="flex gap-5">
+          <div class="bg-[#f1a325] w-22 h-22 rounded-lg flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-phone-volume text-white text-4xl"></i>
+          </div>
+          <div class="flex flex-col gap-3">
+            <p class="text-[#f1a325] text-md">Have Any Question?</p>
+            <p class="text-white text-2xl font-medium">+ 070 4531 9507</p>
+          </div>
+        </div>
+        <div class="flex gap-5">
+          <div class="bg-[#f1a325] w-22 h-22 rounded-lg flex items-center justify-center shrink-0">
+            <i class="fa-regular fa-envelope text-white text-4xl"></i>
+          </div>
+          <div class="flex flex-col gap-3">
+            <p class="text-[#f1a325] text-md">Send Email</p>
+            <p class="text-white text-2xl font-medium">bizmax@laralink.com</p>
+          </div>
+        </div>
+        <div class="flex gap-5">
+          <div class="bg-[#f1a325] w-22 h-22 rounded-lg flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-location-dot text-white text-4xl"></i>
+          </div>
+          <div class="flex flex-col gap-3">
+            <p class="text-[#f1a325] text-md">Address</p>
+            <p class="text-white text-2xl font-medium">Yewtree Cottage, Kings Pyon,
+              <br>
+              HR4 8PZ
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="w-full h-auto xl:w-[440px] min-h-[600px] mb-25 rounded-xl flex flex-col gap-10 items-center justify-center"
+      style="background-image: url('https://html.laralink.com/bizmax/assets/img/testimonial_bg.jpeg'); background-position: center; background-size: cover;">
+      <h1 class="text-black text-5xl font-medium">Contact Us</h1>
+      <div class="flex flex-col items-start mx-auto gap-5 w-full xl:w-[280px] px-10 xl:px-0">
+        <div class="flex flex-col gap-3 w-full">
+          <input type="text"
+            class="bg-gray-200 text-[gray] w-full  h-15 p-3 rounded-md outline-none border-2 border-transparent focus:ring-4 focus:ring-[#ffe9c6] transition-all duration-300 delay-100"
+            placeholder="Your Name">
+          <input type="email"
+            class="bg-gray-200 text-[gray] w-full h-15 p-3 rounded-md outline-none border-2 border-transparent focus:ring-4 focus:ring-[#ffe9c6] transition-all duration-300 delay-100"
+            placeholder="Your Email">
+          <input type="text"
+            class="bg-gray-200 text-[gray] w-full h-30 p-3 rounded-md outline-none border-2 border-transparent focus:ring-4 focus:ring-[#ffe9c6] transition-all duration-300 delay-100"
+            placeholder="Message here ...">
+        </div>
+        <button type="submit"
+          class="flex items-center justify-center text-white text-mf font-medium cursor-pointer hover:bg-[#ce8b20] bg-[#f1a325] w-35 h-12 rounded-md p-2">Submit
+          Now</button>
+      </div>
+    </div>
+    <div class="hidden xl:flex self-end ml-[-120px] z-50 h-150 w-1/4 pointer-events-none overflow-hidden">
+      <img src="https://html.laralink.com/bizmax/assets/img/contact_img_1.png"
+        class="w-auto max-w-none h-full object-bottom-left">
+    </div>
+  </div>
+
+  <!-- Brands -->
+
+  <div class="w-full min-h-50 my-5 px-10 flex items-center justify-center">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-10">
+      <img src="https://html.laralink.com/bizmax/assets/img/brand_1.svg" class="w-45">
+      <img src="https://html.laralink.com/bizmax/assets/img/brand_2.svg" class="w-45">
+      <img src="https://html.laralink.com/bizmax/assets/img/brand_3.svg" class="w-45">
+      <img src="https://html.laralink.com/bizmax/assets/img/brand_4.svg" class="w-35">
+      <img src="https://html.laralink.com/bizmax/assets/img/brand_5.svg" class="w-45">
+    </div>
+  </div>
+  </main>
+  <footer>
+    <div class="min-h-110 w-full py-15 px-20"
+      style="background-image: url('https://html.laralink.com/bizmax/assets/img/footer_bg.jpeg');">
+      <div class="md:flex flex-wrap items-center justify-between gap-10 md:gap-0 flex">
+        <div class="flex-col">
+          <p class="text-[#f1a325] text-md">Have Any Question?</p>
+          <p class="text-white text-2xl font-medium">+ 070 4531 9507</p>
+        </div>
+        <div class="hidden md:flex">
+          <img src="https://html.laralink.com/bizmax/assets/img/logo.svg" class="w-40">
+        </div>
+        <div class="flex-col">
+          <p class="text-[#f1a325] text-md">Send Email</p>
+          <p class="text-white text-2xl font-medium">bizmax@laralink.com</p>
+        </div>
+      </div>
+      <hr class="border border-gray-600 my-10">
+      <div class="flex flex-col xl:flex-row flex-wrap items-start xl:items-center justify-between gap-10">
+        <div class="flex flex-col gap-7 w-full xl:w-1/3">
+          <div class="text-white w-full xl:max-w-85">
+            <p>I've been using [business name] for the past year and I'm so glad I did. Their products and
+              services are top-notch and their customer service is amazing. I would highly recommend them
+              to anyone</p>
+          </div>
+          <div class="text-white flex gap-5">
+            <p
+              class="border border-gray-400 hover:bg-[#f1a325] hover:border-[#f1a325] w-10 h-10 p-2 rounded-full cursor-pointer transition-all duration-300 text-center">
+              <i class="fa-brands fa-facebook-f"></i>
+            </p>
+            <p
+              class="border border-gray-400 hover:bg-[#f1a325] hover:border-[#f1a325] w-10 h-10 p-2 rounded-full cursor-pointer transition-all duration-300 text-center">
+              <i class="fa-brands fa-twitter"></i>
+            </p>
+            <p
+              class="border border-gray-400 hover:bg-[#f1a325] hover:border-[#f1a325] w-10 h-10 p-2 rounded-full cursor-pointer transition-all duration-300 text-center">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </p>
+            <p
+              class="border border-gray-400 hover:bg-[#f1a325] hover:border-[#f1a325] w-10 h-10 p-2 rounded-full cursor-pointer transition-all duration-300 text-center">
+              <i class="fa-brands fa-dribbble"></i>
+            </p>
+
+          </div>
+        </div>
+        <div class="flex-col w-full xl:w-auto">
+          <p class="text-white text-2xl  text-left font-bold pb-5">Explore</p>
+          <div class="flex gap-15">
+            <div class="flex-col">
+              <ul>
+                <li class="text-white hover:text-[#f1a325] text-lg">About</li>
+                <li class="text-white hover:text-[#f1a325] text-lg">Services</li>
+                <li class="text-white hover:text-[#f1a325] text-lg">Pricing Page</li>
+                <li class="text-white hover:text-[#f1a325] text-lg">Blog</li>
+                <li class="text-white hover:text-[#f1a325] text-lg">Contact</li>
+              </ul>
+            </div>
+            <div class="flex-col">
+              <ul>
+                <li class="text-white hover:text-[#f1a325] text-lg">Portfolio</li>
+                <li class="text-white hover:text-[#f1a325] text-lg">Support</li>
+                <li class="text-white hover:text-[#f1a325] text-lg">New Project</li>
+                <li class="text-white hover:text-[#f1a325] text-lg">Privacy Policy</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-7 w-full xl:w-auto">
+          <div class="flex flex-col gap-3">
+            <p class="text-white font-medium text-2xl">Newsletter</p>
+            <p class="text-white w-full xl:max-w-65">At vero eos et accusamus et iusto odio as part
+              dignissimos ducimus qui blandit.</p>
+          </div>
+          <div class="relative flex items-center justify-end">
+            <input type="text" class="relative bg-[#383737] w-full xl:w-65 h-15 rounded-lg text-gray-300 px-5"
+              placeholder="Enter your mail">
+            <button type="submit"
+              class="absolute flex items-center justify-center text-white text-md  cursor-pointer hover:bg-[#ce8b20] bg-[#f1a325] w-12 h-12 rounded-lg mx-2">GO</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-[#1b1b1b] w-full h-25 flex items-center justify-center">
+      <p class="text-[#9d9d9d] font-medium">Copyright &copy 2026 <span
+          class="text-[#f1a325] cursor-pointer hover:underline">bizmax.</span> All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="src/script.js"></script>
+  <script src="src/admin/js/slider.js"></script>
+  <script src="src/admin/js/service.js"></script>
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-element-bundle.min.js"></script>
+
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      keyboard: {
+        enabled: true,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+
+      },
+    });
+  </script>
+</body>
+
 </html>

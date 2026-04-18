@@ -10,6 +10,7 @@ function render(data) {
     console.log(item);
     sliders.innerHTML += `
     
+    
              <tr class="even:bg-blue-50">
                   <td class="p-4 text-[15px] text-slate-900 font-medium">
                   <img src="https://api142.nurlandev.click/public/img/sliders/${item.image}" alt="" />

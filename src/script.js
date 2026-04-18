@@ -1,3 +1,13 @@
+const menubar = document.getElementById("menubar");
+const menuopen = document.getElementById("menuopen");
+const closemenu = document.getElementById("closemenu");
+menubar.addEventListener("click", () => {
+  menubar.classList.toggle("open");
+  menubar.classList.toggle("close")
+  const menuopen = document.getElementById("menuopen");
+  menuopen.style.display = menuopen.style.display === "none" ? "block" : "none";
+});
+
 const SERVICES_URL = "https://api142.nurlandev.click/api/services";
 
 function renderServices(data) {
